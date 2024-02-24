@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Generator</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input[type="file"], 
+        input[type="number"],
+        button {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="file"], 
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #222;
+            color: #ddd;
+        }
+        button {
+            background-color: #008CBA; /* Blue */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005f73;
+        }
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+        }
+        .flashes li {
+            background-color: #f44336; /* Red */
+            color: white;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Quiz and Answer Key Generator</h2>
+    <p>This app will create a quiz and an answer key based on the data you provide.</p>
+    
+    <form method="post" enctype="multipart/form-data">
+        <ol>
+            <li>
+                Step 1: Upload an answer key in CSV format. Make sure there are only 2 columns, the first with the question, and the second with the answer.
+                <div class="form-group">
+                    <input type="file" name="quizFile" required>
+                </div>
+            </li>
+            <li>
+                Step 2: How many questions do you want your quiz to have? It will take a random selection of questions from your answer sheet for each quiz.
+                <div class="form-group">
+                    <input type="number" id="numQuestions" name="numQuestions" min="1" required>
+                </div>
+            </li>
+            <li>
+                Step 3: How many different quizzes do you want?
+                <div class="form-group">
+                    <input type="number" id="numQuizzes" name="numQuizzes" min="1" required>
+                </div>
+            </li>
+            <li>
+                Step 4: Download your quizzes in a zip file!
+                <div class="form-group">
+                    <button type="submit">Generate Quizzes</button>
+                </div>
+            </li>
+        </ol>
+    </form>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
